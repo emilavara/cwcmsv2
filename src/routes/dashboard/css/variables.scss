@@ -1,0 +1,25 @@
+:root {
+    //BACKGROUND COLORS
+    --color-bg-primary: #fefefe;
+    --color-bg-secondary: #f9f9f9;
+
+    //ACCENTS & COLORS
+    --color-accent: #FF8C00;
+
+    //BORDER COLORS
+    --color-border-primary: #dfdfdf;
+    --color-border-corner: #717171;
+    --color-border-accent: #FF8C00;
+    --color-border-corner: #FEE1BE;
+}
+
+/*
+https://stripesgenerator.com/
+2px size
+*/
+
+.monochrome-striped-background {
+    background-image: linear-gradient(45deg, #f9f9f9 25%, #ececec 25%, #ececec 50%, #f9f9f9 50%, #f9f9f9 75%, #ececec 75%, #ececec 100%);
+    background-size: 5.66px 5.66px;
+}
+

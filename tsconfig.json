@@ -1,0 +1,39 @@
+{
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"moduleResolution": "bundler",
+		"baseUrl": ".",
+		"paths": {
+            "$cmscss/*": ["src/routes/dashboard/css/*"],
+            "$cmscss": ["src/routes/dashboard/css"],
+
+            "$cmslib/*": ["src/routes/dashboard/lib/*"],
+            "$cmslib": ["src/routes/dashboard/lib"],
+
+            "$cmscomponents/*": ["src/routes/dashboard/lib/components/*"],
+            "$cmscomponents": ["src/routes/dashboard/lib/components"],
+
+            "$cmsserver/*": ["src/routes/dashboard/server/*"],
+            "$cmsserver": ["src/routes/dashboard/server"],
+
+            "$stores/*": ["src/lib/stores/*"],
+            "$stores": ["src/lib/stores"],
+
+            "$components/*": ["src/lib/components/*"],
+            "$components": ["src/lib/components"]
+        }
+	}
+	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
+	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
+	//
+	// To make changes to top-level options such as include and exclude, we recommend extending
+	// the generated config; see https://svelte.dev/docs/kit/configuration#typescript
+}
