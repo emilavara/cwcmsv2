@@ -8,7 +8,7 @@ const dbPromise = getDb(); // ensure a single shared connection
 
 export const auth = betterAuth({
     database: mongodbAdapter(await getDb()),
-    plugins: [sveltekitCookies(getRequestEvent)], // keep this last
+    plugins: [sveltekitCookies(getRequestEvent)],
     emailAndPassword: {
         enabled: true,
     },

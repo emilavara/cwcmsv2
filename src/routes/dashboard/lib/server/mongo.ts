@@ -1,22 +1,47 @@
-import { MongoClient, type Db } from "mongodb";
+import mongoose from "mongoose";
+import type { Db } from "mongodb";
 import { dev } from "$app/environment";
 import { env } from "$env/dynamic/private";
-const uri = env.MONGODB_URI!;
-const dbName = env.MONGODB_DB!;
-if (!uri || !dbName) throw new Error("Missing MONGODB_URI / MONGODB_DB");
 
-type Cached = { client: MongoClient | null; db: Db | null };
-const globalForMongo = globalThis as unknown as { _mongo?: Cached };
-const cached: Cached = globalForMongo._mongo ?? { client: null, db: null };
-if (dev) globalForMongo._mongo = cached;
+const uri = env.MONGODB_URI || env.MONGO_URI || "";
+const dbName = env.MONGODB_DB || env.MONGO_DB || undefined;
+if (!uri) throw new Error("Missing MONGODB_URI / MONGO_URI");
+
+type Cached = { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
+const globalForMongoose = globalThis as unknown as { _mongoose?: Cached };
+const cached: Cached = globalForMongoose._mongoose ?? { conn: null, promise: null };
+if (dev) globalForMongoose._mongoose = cached;
+
+export async function connectMongo(): Promise<typeof mongoose> {
+  if (cached.conn) return cached.conn;
+  if (!cached.promise) {
+    const options: Parameters<typeof mongoose.connect>[1] = {
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+    };
+    if (dbName) (options as any).dbName = dbName;
+    cached.promise = mongoose.connect(uri, options).then((m) => m);
+  }
+  cached.conn = await cached.promise;
+  console.log("Mongoose connected.");
+  return cached.conn;
+}
 
 export async function getDb(): Promise<Db> {
-    if (cached.db) return cached.db;
-    const client = new MongoClient(uri, { maxPoolSize: 10 });
-    await client.connect();
-    const db = client.db(dbName);
-    cached.client = client;
-    cached.db = db;
-    console.log('MongoDB connected.')
-    return db;
+  const m = await connectMongo();
+  const db = m.connection.db;
+  if (!db) throw new Error("Mongoose connection has no native db");
+  return db;
 }
+
+export function getModel<TSchema extends mongoose.Schema>(
+  name: string,
+  schema: TSchema
+): mongoose.Model<mongoose.InferSchemaType<TSchema>> {
+  return (
+    (mongoose.models[name] as mongoose.Model<mongoose.InferSchemaType<TSchema>>) ||
+    mongoose.model(name, schema)
+  );
+}
+
+export { mongoose };
