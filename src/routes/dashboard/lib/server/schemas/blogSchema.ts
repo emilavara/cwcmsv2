@@ -1,0 +1,1 @@
+//TODO: add a simple proper mongoose schema for a blog, should contain a url slug
