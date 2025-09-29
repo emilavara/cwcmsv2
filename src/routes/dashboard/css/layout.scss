@@ -3,12 +3,88 @@
     grid-template-columns: 230px 1fr;
     height: 100vh;
 
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        height: auto;
+
+        .cwcms-sidebar-container {
+            display: none;
+        }
+    }
+
     .cwcms-sidebar-container {
         background-color: var(--color-bg-secondary);
         border-right: 1px solid var(--color-border-primary);
     }
 
     .cwcms-main-container {
-        
+        .cwcms-main-header {
+            display: grid;
+            grid-template-rows: 64px;
+
+            .header-container {
+                background-color: var(--color-bg-secondary);
+                border-bottom: 1px solid var(--color-border-primary);
+                padding: 0 1rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .tab-container {
+                background-color: var(--color-bg-secondary);
+                border-bottom: 1px solid var(--color-border-primary);
+                padding: 0 1rem;
+                display: none;
+
+                .header-tab-button {
+                    all: unset;
+                    height: 100%;
+                    border-bottom: 1px solid transparent;
+                    font-size: 12px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    margin-bottom: -1px;
+                    transition: border-color 0.1s ease;
+
+                    .text-container {
+                        background-color: transparent;
+                        padding: 0.25rem 0.5rem;
+                        border: 1px solid transparent;
+                        color: #8a8a8a;
+                        transition: background-color 0.1s ease;
+                    }
+
+                    &:hover {
+                        .text-container {
+                            background-color: #eeeeee;
+                        }
+                    }
+
+                    &.active {
+                        border-color: var(--color-accent);
+
+                        .text-container {
+                            border: 1px solid #FEE1BE;
+                            background-color: #FFF7ED;
+                            color: var(--color-accent);
+                        }
+                    }
+                }
+            }
+
+            &.has-tabs {
+                grid-template-rows: 64px 48px;
+
+                .tab-container {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+            }
+        }
+
+        .cwcms-main-content {
+            padding: 1rem;
+        }
     }
 }

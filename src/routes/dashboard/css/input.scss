@@ -1,0 +1,43 @@
+.cwcms-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-weight: 500;
+
+    input[type=text], input[type=date], textarea {
+        appearance: none;
+        height: 36px;
+        font-family: inherit;
+        font-size: 14px;
+        border: 1px solid var(--color-border-primary);
+        background-color: var(--color-bg-secondary);
+        padding-left: 0.5rem;
+        font-weight: 500;
+        transition: border-color 0.1s ease;
+        box-shadow: 0px 3px 3.9px 1px rgba(227, 227, 227, 0.20);
+
+        &:disabled {
+            opacity: 0.5;
+        }
+
+        &:focus {
+            border-color: var(--color-border-corner);
+            outline: none;
+        }
+    }
+
+    textarea {
+        height: unset;
+        padding-top: 0.5rem;
+        line-height: 1.5;
+    }
+
+    .cwcms-input-title {
+        font-size: 14px;
+    }
+
+    .cwcms-input-description {
+        font-size: 12px;
+        color: #9a9a9a;
+    }
+}

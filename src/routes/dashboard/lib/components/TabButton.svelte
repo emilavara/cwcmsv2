@@ -4,12 +4,13 @@
         onClick: () => void
         onHold?: () => void
         holdTime?: number
-        type: 'primary' | 'secondary' | 'tertiary'
         active: boolean
         icon: string
+        type: 'link' | 'button'
+        link?: string
     }
 
-    const { text = 'Button', onClick, onHold, holdTime, active, icon }: Props = $props();
+    const { text = 'Button', onClick, onHold, holdTime, active, icon, type = 'button', link }: Props = $props();
 
     let holdTimeout: number
 
@@ -22,18 +23,35 @@
     }
 </script>
 
-<button class="cwcms-tabbutton" class:active>
-    <div class="icon-container">
-        <i class="ph {icon}"></i>
-    </div>
-    <div class="text-container">
-        {text}
-    </div>
-    <div class="bracket top-left"></div>
-    <div class="bracket top-right"></div>
-    <div class="bracket bottom-left"></div>
-    <div class="bracket bottom-right"></div>
-</button>
+{#if type === 'button'}
+    <button class="cwcms-tabbutton" class:active>
+        <div class="icon-container">
+            <i class="ph {icon}"></i>
+        </div>
+        <div class="text-container">
+            {text}
+        </div>
+        <div class="bracket top-left"></div>
+        <div class="bracket top-right"></div>
+        <div class="bracket bottom-left"></div>
+        <div class="bracket bottom-right"></div>
+    </button>
+{/if}
+
+{#if type === 'link'}
+    <a href={link} class="cwcms-tabbutton" class:active>
+        <div class="icon-container">
+            <i class="ph {icon}"></i>
+        </div>
+        <div class="text-container">
+            {text}
+        </div>
+        <div class="bracket top-left"></div>
+        <div class="bracket top-right"></div>
+        <div class="bracket bottom-left"></div>
+        <div class="bracket bottom-right"></div>
+    </a>
+{/if}
 
 <style lang="scss">
     .cwcms-tabbutton {
@@ -46,6 +64,7 @@
         gap: 0.5rem;
         color: #656565;
         cursor: pointer;
+        border: 1px solid transparent;
 
         .icon-container {
             font-size: 20px;
@@ -54,7 +73,7 @@
         }
 
         .text-container {
-            font-weight: 400;
+            font-weight: 500;
         }
 
         .bracket {
@@ -99,7 +118,7 @@
         }
 
         &.active {
-            border: 1px solid var(--color-border-corner);
+            border: 1px solid var(--color-border-accent-corner);
             color: var(--color-border-accent);
             background-image: linear-gradient(-45deg, #f9f9f9 25%, #fee1be79 25%, #fee1be79 50%, #f9f9f9 50%, #f9f9f9 75%, #fee1be79 75%, #fee1be79 100%);
             background-size: 3.66px 3.66px;

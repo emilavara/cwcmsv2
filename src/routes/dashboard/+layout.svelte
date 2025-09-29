@@ -7,6 +7,7 @@
 
 <svelte:head>
     <title>cwCMS – Översikt</title>
+    <meta name="theme-color" content="#f9f9f9"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"/>
 </svelte:head>
 

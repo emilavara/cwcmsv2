@@ -1,6 +1,12 @@
 @use './variables.scss' as *;
 @use './typography.scss' as *;
 @use './layout.scss' as *;
+@use './input.scss' as *;
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 body {
     margin: 0;

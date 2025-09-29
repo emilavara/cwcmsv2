@@ -23,7 +23,7 @@ export async function connectMongo(): Promise<typeof mongoose> {
     cached.promise = mongoose.connect(uri, options).then((m) => m);
   }
   cached.conn = await cached.promise;
-  console.log("Mongoose connected.");
+  console.log("MongoDB: Connected to auth database.");
   return cached.conn;
 }
 
